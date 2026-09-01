@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#4f7cff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="打卡">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="stylesheet" href="style.css">
+<title>打卡小助手</title>
+</head>
+<body>
+<div id="bg"><div class="bg-img"></div></div>
+<div id="app">
+
+  <!-- 今日 -->
+  <section id="view-today" class="view active">
+    <div id="today-list"></div>
+  </section>
+
+  <!-- 统计 -->
+  <section id="view-stats" class="view">
+    <div class="chip-row" id="stat-chips"></div>
+    <div class="seg-row">
+      <div class="seg" id="stat-modes"></div>
+      <div class="nav-arrows">
+        <button onclick="statsGo(-1)">‹</button>
+        <button onclick="stats.cursor=fmt(new Date());renderStats()" title="回到今天">今</button>
+        <button onclick="statsGo(1)">›</button>
+      </div>
+    </div>
+    <div id="stat-label"></div>
+    <div id="stat-summary"></div>
+    <div id="stat-body"></div>
+  </section>
+
+  <!-- 奖品 -->
+  <section id="view-shop" class="view">
+    <div id="shop-list"></div>
+  </section>
+
+  <!-- 管理 -->
+  <section id="view-manage" class="view">
+    <div id="manage-list"></div>
+  </section>
+
+</div>
+
+<!-- 底部导航 -->
+<nav id="tabbar">
+  <button class="tab active" data-view="today">
+    <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.8 12 3.8l8.5 7"/><path d="M5.5 9.5V19a1.6 1.6 0 0 0 1.6 1.6h9.8a1.6 1.6 0 0 0 1.6-1.6V9.5"/><path d="M9.8 20.4v-5.2a1 1 0 0 1 1-1h2.4a1 1 0 0 1 1 1v5.2"/></svg>
+    今日</button>
+  <button class="tab" data-view="stats">
+    <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5.5 20v-6.5"/><path d="M12 20V5.5"/><path d="M18.5 20v-9.5"/></svg>
+    统计</button>
+  <button class="tab" data-view="shop">
+    <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8.2" width="16" height="12.3" rx="2.2"/><path d="M4 12.5h16"/><path d="M12 8.5v12"/><path d="M12 8.3C9.2 8.3 7.6 6.8 7.6 5.4c0-1.2.9-2 2.1-2 1.7 0 2.3 2.6 2.3 4.9 0-2.3.6-4.9 2.3-4.9 1.2 0 2.1.8 2.1 2 0 1.4-1.6 2.9-4.4 2.9Z"/></svg>
+    奖品</button>
+  <button class="tab" data-view="manage">
+    <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.2"/><circle cx="8.8" cy="10.2" r="0.6" fill="currentColor" stroke="none"/><circle cx="15.2" cy="10.2" r="0.6" fill="currentColor" stroke="none"/><path d="M8.5 14.2c.9 1.2 2.1 1.8 3.5 1.8s2.6-.6 3.5-1.8"/></svg>
+    管理</button>
+</nav>
+
+<div id="modal-root"></div>
+<div id="toast"></div>
+
+<script src="app.js"></script>
+<script>
+if('serviceWorker' in navigator && (location.protocol==='https:' || location.hostname==='localhost' || location.hostname==='127.0.0.1')){
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+</script>
+</body>
+</html>
